@@ -40,34 +40,55 @@ Do not start with many microservices.
 The backend should be internally divided into independent business modules with clear boundaries:
 
 ```text
-src/
-├── modules/
-│   ├── auth/
-│   ├── users/
-│   ├── employees/
-│   ├── employers/
-│   ├── jobs/
-│   ├── applications/
-│   ├── hiring/
-│   ├── ratings/
-│   ├── payments/
-│   ├── documents/
-│   ├── notifications/
-│   └── admin/
+tele-bot/
+├── backend/
+│   └── src/
+│       ├── modules/
+│       │   ├── admin/
+│       │   ├── applications/
+│       │   ├── auth/
+│       │   ├── documents/
+│       │   ├── employees/
+│       │   ├── employers/
+│       │   ├── hiring/
+│       │   ├── jobs/
+│       │   ├── notifications/
+│       │   ├── payments/
+│       │   ├── ratings/
+│       │   └── users/
+│       ├── infrastructure/
+│       │   ├── chapa/
+│       │   ├── database/
+│       │   ├── queue/
+│       │   ├── redis/
+│       │   ├── storage/
+│       │   └── telegram/
+│       └── shared/
+│           ├── errors/
+│           ├── logging/
+│           ├── validation/
+│           └── utils/
 │
-├── infrastructure/
-│   ├── database/
-│   ├── redis/
-│   ├── storage/
-│   ├── telegram/
-│   ├── chapa/
-│   └── queue/
-│
-└── shared/
-    ├── errors/
-    ├── validation/
-    ├── logging/
-    └── utils/
+└── frontend/
+    └── src/
+        ├── assets/
+        ├── components/
+        │   ├── common/
+        │   └── ui/
+        ├── features/
+        │   ├── applications/
+        │   ├── auth/
+        │   ├── hiring/
+        │   ├── jobs/
+        │   ├── payments/
+        │   ├── profile/
+        │   └── ratings/
+        ├── hooks/
+        ├── pages/
+        ├── services/
+        ├── types/
+        └── utils/
+
 ```
 
 This provides clean boundaries while avoiding the operational complexity of microservices.
