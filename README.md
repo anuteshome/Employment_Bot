@@ -1,4 +1,4 @@
-# Telegram Reverse Employment Marketplace (Ethiopia)
+# Telegram Reverse Employment Marketplace
 
 [![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-blue?logo=telegram)](https://t.me/employee_hiring_bot)
 [![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python)](https://python.org)
