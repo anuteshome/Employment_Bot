@@ -470,5 +470,7 @@ if document.owner_user_id != current_user.id and current_user.role != "ADMIN":
 ### 7.4 CORS & Rate Limiting Policy
 - **Rate Limiting:** Protects endpoints (e.g. `/auth/telegram` and `/documents/upload-url`) against brute-force attacks (e.g., max 10 requests per minute per IP/Telegram ID).
 - **CORS Constraints:** Restricted strictly to Telegram Mini App origins and approved staging/production domains.
-UI Mockup
+
+
+### UI Mockup ###
 https://telegrambotv1.vercel.app/
