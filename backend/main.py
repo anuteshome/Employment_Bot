@@ -12,6 +12,8 @@ import infrastructure.database.models  # Ensures all SQLAlchemy models are regis
 
 from modules.auth.router import router as auth_router
 from modules.users.router import router as users_router
+from modules.employees.router import router as employees_router
+from modules.employers.router import router as employers_router
 
 
 class HealthCheckResponse(BaseModel):
@@ -107,6 +109,8 @@ async def health_check(db: AsyncSession = Depends(get_db)):
 # Include domain routers under API v1
 api_v1_router.include_router(auth_router)
 api_v1_router.include_router(users_router)
+api_v1_router.include_router(employees_router)
+api_v1_router.include_router(employers_router)
 
 app.include_router(api_v1_router)
 

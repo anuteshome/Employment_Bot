@@ -1,13 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowLeft, ArrowRight, Loader2 } from 'lucide-react';
 import { Steps } from '@/components/ui/steps';
 import { PersonalInfoStep } from './components/PersonalInfoStep';
 import { ProfessionalDetailsStep } from './components/ProfessionalDetailsStep';
 import { UploadCvStep } from './components/UploadCvStep';
 import { ReviewStep } from './components/ReviewStep';
 import { EmployeeDashboard } from './components/EmployeeDashboard';
+import {
+  saveEmployeeProfile,
+  getEmployeeProfile,
+  EmployeeProfileCreatePayload,
+} from '@/services/employeeService';
 
 const STEP_ITEMS = ['Personal Info', 'Professional', 'Upload CV', 'Review'];
 
@@ -15,6 +20,7 @@ export function EmployeeWizard() {
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [agreed, setAgreed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: 'Alex Morgan',
@@ -26,9 +32,33 @@ export function EmployeeWizard() {
     jobTitle: 'Senior Product Designer',
     yearsExp: '5–7 years',
     portfolio: 'https://yourportfolio.com',
+    bio: 'Experienced product designer',
   });
 
   const [skills, setSkills] = useState(['React', 'TypeScript', 'Product Design']);
+
+  useEffect(() => {
+    async function loadProfile() {
+      try {
+        const profile = await getEmployeeProfile();
+        if (profile) {
+          setFormData((prev) => ({
+            ...prev,
+            fullName: `${profile.first_name} ${profile.last_name}`,
+            location: profile.location || prev.location,
+            bio: profile.bio || prev.bio,
+          }));
+          if (profile.skills && profile.skills.length > 0) {
+            setSkills(profile.skills.map((s) => s.name));
+          }
+          setSubmitted(true);
+        }
+      } catch (err) {
+        // Profile not created yet in DB
+      }
+    }
+    loadProfile();
+  }, []);
 
   const handleFormChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -44,6 +74,49 @@ export function EmployeeWizard() {
     setSkills((prev) => prev.filter((s) => s !== skillToRemove));
   };
 
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      const nameParts = formData.fullName.trim().split(' ');
+      const firstName = nameParts[0] || 'Alex';
+      const lastName = nameParts.slice(1).join(' ') || 'User';
+
+      const payload: EmployeeProfileCreatePayload = {
+        first_name: firstName,
+        last_name: lastName,
+        bio: formData.portfolio ? `Portfolio: ${formData.portfolio}` : 'Candidate profile',
+        location: formData.location,
+        availability_status: 'AVAILABLE',
+        skills: skills.map((s) => ({
+          name: s,
+          category: 'General',
+          years_experience: 3,
+        })),
+        experiences: [
+          {
+            company_name: 'Tech Corp Ethiopia',
+            position: formData.jobTitle || 'Senior Product Designer',
+            description: 'Work history details',
+          },
+        ],
+        educations: [
+          {
+            institution: 'Addis Ababa University',
+            qualification: 'BSc Degree',
+            field: 'Computer Science',
+          },
+        ],
+      };
+
+      await saveEmployeeProfile(payload);
+      setSubmitted(true);
+    } catch (err: any) {
+      alert(`Failed to save employee profile: ${err.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   if (submitted) {
     return (
       <EmployeeDashboard
@@ -53,6 +126,7 @@ export function EmployeeWizard() {
         skills={skills}
         cvFileName="Alex_Morgan_CV.pdf"
         cvFileSize="2.4 MB"
+        onEditProfile={() => setSubmitted(false)}
       />
     );
   }
@@ -93,7 +167,7 @@ export function EmployeeWizard() {
           <button
             type="button"
             onClick={() => setStep((prev) => Math.max(0, prev - 1))}
-            disabled={step === 0}
+            disabled={step === 0 || isSubmitting}
             className="flex items-center gap-1 text-sm font-bold text-slate-700 disabled:invisible hover:text-slate-900 transition-colors"
           >
             <ArrowLeft size={16} />
@@ -101,17 +175,27 @@ export function EmployeeWizard() {
           </button>
           <button
             type="button"
+            disabled={isSubmitting}
             onClick={() => {
               if (step === 3) {
-                setSubmitted(true);
+                handleSubmit();
               } else {
                 setStep((prev) => prev + 1);
               }
             }}
-            className="flex items-center gap-2 rounded-xl bg-[#2E2A47] px-5 py-3 text-sm font-bold text-white hover:bg-[#1E1A37] transition-colors"
+            className="flex items-center gap-2 rounded-xl bg-[#2E2A47] px-5 py-3 text-sm font-bold text-white hover:bg-[#1E1A37] transition-colors disabled:opacity-50"
           >
-            <span>{step === 3 ? 'Submit application' : 'Continue'}</span>
-            <ArrowRight size={16} />
+            {isSubmitting ? (
+              <>
+                <Loader2 size={16} className="animate-spin" />
+                <span>Saving to database...</span>
+              </>
+            ) : (
+              <>
+                <span>{step === 3 ? 'Submit application' : 'Continue'}</span>
+                <ArrowRight size={16} />
+              </>
+            )}
           </button>
         </div>
       </div>

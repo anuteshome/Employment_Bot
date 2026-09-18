@@ -5,7 +5,7 @@ import { Header } from '@/components/shared/header';
 import { ModeSwitcher } from '@/components/shared/mode-switcher';
 import { EmployeeWizard } from '@/features/employee/EmployeeWizard';
 import { EmployerWizard } from '@/features/employer/EmployerWizard';
-import { loginWithTelegram } from '@/services/authService';
+import { loginWithTelegram, loginDevMode } from '@/services/authService';
 
 export default function Page() {
   const [mode, setMode] = useState<'employee' | 'employer'>('employee');
@@ -13,24 +13,32 @@ export default function Page() {
 
   useEffect(() => {
     // Automatically initialize Telegram Mini App & authenticate with backend
-    if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-      window.Telegram.WebApp.ready();
-      window.Telegram.WebApp.expand();
-
-      const initData = window.Telegram.WebApp.initData;
+    if (typeof window !== 'undefined') {
+      const initData = window.Telegram?.WebApp?.initData;
       if (initData) {
+        window.Telegram?.WebApp?.ready();
+        window.Telegram?.WebApp?.expand();
+
         loginWithTelegram(initData)
           .then((res) => {
             setAuthStatus(`Authenticated as @${res.user.username || res.user.telegram_user_id}`);
           })
           .catch((err) => {
-            setAuthStatus(`Auth Note: ${err.message}`);
+            setAuthStatus(`Auth Error: ${err.message}`);
           });
       } else {
-        setAuthStatus('Standalone Browser Mode');
+        // Fallback for standalone browser testing
+        loginDevMode()
+          .then((res) => {
+            setAuthStatus(`Dev Mode (@${res.user.username})`);
+          })
+          .catch((err) => {
+            setAuthStatus(`Dev Auth Error: ${err.message}`);
+          });
       }
     }
   }, []);
+
 
   return (
     <main className="min-h-screen bg-[#FAFAFA]">
