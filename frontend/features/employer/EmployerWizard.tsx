@@ -42,6 +42,7 @@ export function EmployerWizard() {
             phone: profile.phone || '',
           }));
           setVerificationStatus(profile.verification_status);
+          setStep(3); // Land directly on status screen if profile exists
         }
       } catch (err) {
         // No profile created yet
@@ -86,7 +87,13 @@ export function EmployerWizard() {
           <LicenseInfoStep formData={formData} onChange={handleFormChange} />
         )}
         {step === 2 && <UploadDocumentsStep />}
-        {step === 3 && <VerificationStatusStep />}
+        {step === 3 && (
+          <VerificationStatusStep
+            companyName={formData.companyName}
+            verificationStatus={verificationStatus}
+            onEditProfile={() => setStep(0)}
+          />
+        )}
 
         <div className="mt-8 flex justify-between border-t border-slate-100 pt-5">
           <button
