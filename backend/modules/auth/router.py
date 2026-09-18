@@ -52,3 +52,45 @@ async def authenticate_telegram(
     )
 
     return TokenResponse(access_token=access_token, user=user_summary)
+
+
+@router.post(
+    "/dev-login",
+    response_model=TokenResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Dev Mode Mock Authentication",
+    description="Issues JWT access token for local browser testing without Telegram initData.",
+)
+async def dev_login(
+    db: AsyncSession = Depends(get_db),
+):
+    """Dev mode mock authentication."""
+    mock_telegram_user = {
+        "id": 999999999,
+        "first_name": "Dev",
+        "last_name": "Tester",
+        "username": "dev_tester",
+    }
+    user = await authenticate_or_create_telegram_user(db, mock_telegram_user)
+
+    token_payload = {
+        "sub": str(user.id),
+        "telegram_user_id": user.telegram_user_id,
+        "role": user.role,
+    }
+    access_token = create_access_token(token_payload)
+
+    user_summary = UserAuthResponse(
+        id=user.id,
+        telegram_user_id=user.telegram_user_id,
+        username=user.username,
+        phone=user.phone,
+        role=user.role,
+        status=user.status,
+        has_employee_profile=user.employee_profile is not None,
+        has_employer_profile=user.employer_profile is not None,
+        created_at=user.created_at,
+    )
+
+    return TokenResponse(access_token=access_token, user=user_summary)
+
