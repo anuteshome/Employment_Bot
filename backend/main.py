@@ -8,6 +8,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from shared.config import settings
 from infrastructure.database.connection import get_db, engine
+import infrastructure.database.models  # Ensures all SQLAlchemy models are registered
+
+from modules.auth.router import router as auth_router
+from modules.users.router import router as users_router
 
 
 class HealthCheckResponse(BaseModel):
@@ -99,6 +103,10 @@ async def health_check(db: AsyncSession = Depends(get_db)):
         database=db_status,
     )
 
+
+# Include domain routers under API v1
+api_v1_router.include_router(auth_router)
+api_v1_router.include_router(users_router)
 
 app.include_router(api_v1_router)
 
