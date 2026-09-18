@@ -8,6 +8,7 @@ interface EmployeeDashboardProps {
   skills: string[];
   cvFileName: string;
   cvFileSize: string;
+  onEditProfile?: () => void;
 }
 
 export function EmployeeDashboard({
@@ -17,6 +18,7 @@ export function EmployeeDashboard({
   skills = ['React', 'TypeScript', 'Product Design'],
   cvFileName = 'Alex_Morgan_CV.pdf',
   cvFileSize = '2.4 MB',
+  onEditProfile,
 }: EmployeeDashboardProps) {
   const initials = fullName
     .split(' ')
@@ -27,7 +29,7 @@ export function EmployeeDashboard({
 
   return (
     <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-      <div className="bg-slate-900 p-6 text-white">
+      <div className="bg-slate-900 p-6 text-white flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="grid size-16 place-items-center rounded-full bg-[#2E2A47] font-bold text-lg text-white">
             {initials}
@@ -41,7 +43,17 @@ export function EmployeeDashboard({
             </span>
           </div>
         </div>
+        {onEditProfile && (
+          <button
+            type="button"
+            onClick={onEditProfile}
+            className="rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-bold text-slate-200 hover:bg-slate-700 transition-colors"
+          >
+            Edit Profile
+          </button>
+        )}
       </div>
+
 
       <div className="grid grid-cols-3 divide-x border-b border-slate-100 py-4 text-center">
         <div>

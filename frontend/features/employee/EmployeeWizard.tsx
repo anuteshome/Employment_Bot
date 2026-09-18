@@ -126,6 +126,7 @@ export function EmployeeWizard() {
         skills={skills}
         cvFileName="Alex_Morgan_CV.pdf"
         cvFileSize="2.4 MB"
+        onEditProfile={() => setSubmitted(false)}
       />
     );
   }
