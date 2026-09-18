@@ -23,28 +23,6 @@ Click any link below to jump directly to the specific topic or documentation fil
 
 ---
 
-### 📖 Detailed Topic Navigation Links
-
-#### 🛠️ Technical Stack & Database Design
-- 📄 [Technical Stack Summary](Documentation.md#1-technical-stack)
-- 📊 [Entity-Relationship (ER) Diagram](Documentation.md#2-entity-relationship-er-diagram)
-- 🗃️ [Database Schemas & Entities](Documentation.md#3-entity-descriptions--relationships-summary)
-
-#### 🔐 Authentication, Security & APIs
-- 🔑 [Telegram Authentication Mechanism (`initData` validation)](Documentation.md#4-telegram-authentication-mechanism)
-- 🔌 [FastAPI Registration & Profile APIs](Documentation.md#5-registration--core-api-specifications)
-- 📈 [Registration Status Tracking State Machine](Documentation.md#6-registration-status-tracking--state-machine)
-- 🛡️ [Security, RBAC & Ownership Model](Documentation.md#7-basic-security--authorization-model)
-
-#### 🏃 Sprint Planning & Team Allocation
-- 🎯 [Sprint 1 Execution Document](sprint_1_doc.md)
-- 👤 [Developer 1 Scope (Backend, DB & Auth)](sprint_1_doc.md#21--developer-1--backend-infrastructure-database--authentication)
-- 👤 [Developer 2 Scope (Employee Mini App)](sprint_1_doc.md#22--developer-2--employee-registration--profile-experience)
-- 👤 [Developer 3 Scope (Employer Mini App & Documents)](sprint_1_doc.md#23--developer-3--employer-registration--document-verification-experience)
-- 🏗️ [Full System Design Specifications](telegram_marketplace_system_design.md)
-
----
-
 ## 1. Project Overview & Reverse Marketplace Concept
 
 Traditional job boards operate with high friction: employers post ads, receive hundreds of mismatched applications, and manually sift through them.
