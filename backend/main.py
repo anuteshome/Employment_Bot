@@ -49,11 +49,18 @@ tags_metadata = [
 ]
 
 
+import asyncio
+from bot import start_bot_polling
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """Application lifespan context manager handling startup and shutdown procedures."""
+    bot_task = asyncio.create_task(start_bot_polling())
     yield
+    bot_task.cancel()
     await engine.dispose()
+
 
 
 app = FastAPI(
