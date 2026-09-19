@@ -1,4 +1,4 @@
-import { fetchWithAuth } from './apiClient';
+import { fetchWithAuth, API_BASE_URL } from './apiClient';
 
 export interface UserAuthResponse {
   id: string;
@@ -19,8 +19,6 @@ export interface TokenResponse {
 }
 
 export async function loginWithTelegram(initData: string): Promise<TokenResponse> {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
-
   const response = await fetch(`${API_BASE_URL}/auth/telegram`, {
     method: 'POST',
     headers: {
@@ -44,8 +42,6 @@ export async function loginWithTelegram(initData: string): Promise<TokenResponse
 }
 
 export async function loginDevMode(): Promise<TokenResponse> {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
-
   const response = await fetch(`${API_BASE_URL}/auth/dev-login`, {
     method: 'POST',
     headers: {
