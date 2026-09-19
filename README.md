@@ -7,7 +7,7 @@
 [![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0_Async-red)](https://sqlalchemy.org)
 [![Alembic](https://img.shields.io/badge/Alembic-Migrations-orange)](https://alembic.sqlalchemy.org)
 
-An innovative Telegram-native **Reverse Employment Marketplace** tailored for Ethiopia. Unlike traditional job boards where employers post ads and sift through applications, this platform flips the model: **employers search, filter, and discover candidates by verified skills**, while **candidates review verified employer credentials, trade licenses, ratings, and business history**.
+An innovative Telegram-native **Reverse Employment Marketplace** tailored for the Ethiopian job market. Unlike traditional job boards where employers post ads and passively wait to sift through mismatched applications, this platform flips the model: **employers proactively search, filter, and discover pre-verified candidates by skill and experience**, while **candidates review verified employer credentials, trade licenses, ratings, and business history** before committing to any opportunity.
 
 ---
 
@@ -29,9 +29,9 @@ An innovative Telegram-native **Reverse Employment Marketplace** tailored for Et
 ## 1. System & Architecture Guide
 
 ### 💡 Core Concept: Reverse Employment Marketplace
-- **Employer Discovery:** Employers filter candidates directly by skill keywords, years of experience, availability status, and location.
-- **Candidate Empowerment:** Employees verify employer legitimacy by inspecting trade licenses, business TIN certificates, verified badges, and historical reviews.
-- **Telegram Native:** Runs directly inside Telegram as a high-performance **Telegram Mini App** supported by a **Telegram Bot** for instant notifications.
+- **Employer Discovery:** Employers actively filter and browse candidates by skill keywords, years of experience, current availability status, and location — no waiting for applications.
+- **Candidate Empowerment:** Employees protect themselves by verifying employer legitimacy before accepting any role, inspecting trade licenses, business TIN certificates, verified badges, and historical hiring reviews.
+- **Telegram Native:** Runs entirely inside Telegram as a high-performance **Telegram Mini App** for a seamless app-like experience, complemented by a **Telegram Bot** for instant job alerts and status notifications.
 
 ### 🏗️ Architecture Overview
 
@@ -73,8 +73,8 @@ An innovative Telegram-native **Reverse Employment Marketplace** tailored for Et
 ## 2. How to Run Guide
 
 ### Prerequisites
-- [Docker & Docker Compose](https://docs.docker.com/get-docker/) installed.
-- (Optional for local non-Docker development) Python 3.11+ and `uv` or `pip`.
+- [Docker & Docker Compose](https://docs.docker.com/get-docker/) installed — required for Option A (recommended path).
+- (Optional, for local non-Docker development only) Python 3.11+ and `uv` or `pip` installed on your machine.
 
 ---
 
@@ -112,7 +112,7 @@ Running with Docker launches both PostgreSQL 16 and the FastAPI Backend with a s
 
 ### Option B: Running Database in Docker + Backend Locally
 
-If you prefer executing Python directly on your host machine for debugging:
+If you prefer running Python directly on your host machine (e.g. for faster hot-reload debugging or IDE breakpoints), use this approach — only the database runs in Docker:
 
 1. **Start only the PostgreSQL Database container**:
    ```bash
@@ -155,7 +155,7 @@ To inspect database tables using a GUI tool like **Beekeeper Studio**, use the f
 
 ### Database Migrations with Alembic
 
-Alembic tracks and executes schema changes in PostgreSQL:
+Alembic tracks and applies incremental schema changes to PostgreSQL. Always run migrations after pulling new code that includes model changes:
 
 - **Generate a new migration script**:
   ```bash
@@ -224,7 +224,7 @@ tele-bot/
 
 ## 4. API & Swagger Documentation Reference
 
-The backend features auto-generated, interactive OpenAPI documentation via Swagger UI.
+The backend auto-generates interactive OpenAPI documentation via Swagger UI — no separate Postman collection is needed. All endpoints, request bodies, and response schemas are browsable and testable directly from the browser.
 
 ### Interactive API Documentation Links
 - **Swagger UI:** `http://localhost:8000/docs`
@@ -262,7 +262,7 @@ Base URL Path: `/api/v1`
 
 ## 5. Detailed Design Documents
 
-For deep-dive architectural specifications, ER diagrams, and design details, check the following documents in the `Docs/` directory:
+For deep-dive architectural specifications, ER diagrams, and design details, refer to the following documents in the `Docs/` directory. Each document targets a distinct concern so contributors can quickly find what they need without reading everything:
 
 - 📄 [Documentation.md](Docs/Documentation.md) — Comprehensive technical specification containing ER diagrams, API payload schemas, Telegram `initData` HMAC validation algorithms, and state machines.
 - 🔌 [Connecting Together.md](Docs/Connecting%20Together.md) — End-to-end integration guide between Telegram Bot, Frontend Mini App, and FastAPI backend APIs.
