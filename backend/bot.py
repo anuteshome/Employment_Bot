@@ -6,7 +6,7 @@ from shared.config import settings
 logger = logging.getLogger("telegram_bot")
 
 WELCOME_MESSAGE = (
-    "👋 *Welcome to TalentFlow!* =\n\n"
+    "👋 *Welcome to TalentFlow!*\n\n"
     "The #1 Telegram-native reverse employment marketplace platform in Ethiopia.\n\n"
     "💼 *For Job Seekers (Employees):*\n"
     "Create your profile, highlight your skills & work history, and let top companies discover & contact you directly.\n\n"
