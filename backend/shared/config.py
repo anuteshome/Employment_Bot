@@ -17,8 +17,9 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/tele_bot"
 
     # Security & Telegram Authentication
-    BOT_TOKEN: str = "your_telegram_bot_token_here"
-    JWT_SECRET: str = "supersecretjwtkey_change_me_in_production_123456789"
+    BOT_TOKEN: str = "8900865091:AAG0VWAkv4y_YNf9T-FQq9fWF1UDSg823hE"
+    WEBAPP_URL: str = "https://tele-bot-nine-chi.vercel.app"
+    JWT_SECRET: str = "23b4aaa5c57f23c4a14ada7baa8840269694e05207cbd3b5ad47a4194759b2ad"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days (10080 minutes)
 
