@@ -50,6 +50,15 @@ export interface EducationResponse {
 export interface EmployeeProfileCreatePayload {
   first_name: string;
   last_name: string;
+  email?: string;
+  phone?: string;
+  avatar_url?: string;
+  emergency_contact_name?: string;
+  emergency_contact_phone?: string;
+  current_job_title?: string;
+  years_experience?: string;
+  portfolio_url?: string;
+  cv_file_url?: string;
   bio?: string;
   location?: string;
   availability_status: string;
@@ -63,6 +72,15 @@ export interface EmployeeProfileResponse {
   user_id: string;
   first_name: string;
   last_name: string;
+  email?: string;
+  phone?: string;
+  avatar_url?: string;
+  emergency_contact_name?: string;
+  emergency_contact_phone?: string;
+  current_job_title?: string;
+  years_experience?: string;
+  portfolio_url?: string;
+  cv_file_url?: string;
   bio?: string;
   location?: string;
   availability_status: string;
