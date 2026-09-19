@@ -1,4 +1,5 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+export const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'https://slick-showers-clap.loca.lt/api/v1';
 
 export async function fetchWithAuth<T>(
   endpoint: string,
