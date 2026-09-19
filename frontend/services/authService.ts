@@ -23,7 +23,10 @@ export async function loginWithTelegram(initData: string): Promise<TokenResponse
 
   const response = await fetch(`${API_BASE_URL}/auth/telegram`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Bypass-Tunnel-Reminder': 'true',
+    },
     body: JSON.stringify({ init_data: initData }),
   });
 
@@ -45,7 +48,10 @@ export async function loginDevMode(): Promise<TokenResponse> {
 
   const response = await fetch(`${API_BASE_URL}/auth/dev-login`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Bypass-Tunnel-Reminder': 'true',
+    },
   });
 
   const data = await response.json();

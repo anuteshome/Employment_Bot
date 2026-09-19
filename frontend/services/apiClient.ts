@@ -8,6 +8,7 @@ export async function fetchWithAuth<T>(
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
+    'Bypass-Tunnel-Reminder': 'true',
     ...(options.headers as Record<string, string>),
   };
 
