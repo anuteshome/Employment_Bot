@@ -38,8 +38,12 @@ export function EmployerWizard() {
           setFormData((prev) => ({
             ...prev,
             companyName: profile.business_name,
+            regNumber: profile.registration_number || prev.regNumber,
+            email: profile.official_email || prev.email,
+            website: profile.website_url || prev.website,
+            taxId: profile.tax_id || prev.taxId,
             location: profile.location || prev.location,
-            phone: profile.phone || '',
+            regDate: profile.registration_date || prev.regDate,
           }));
           setVerificationStatus(profile.verification_status);
           setStep(3); // Land directly on status screen if profile exists
@@ -61,7 +65,12 @@ export function EmployerWizard() {
       const payload: EmployerProfileCreatePayload = {
         business_name: formData.companyName,
         business_type: 'PLC',
-        description: `Reg: ${formData.regNumber}, Email: ${formData.email}, Web: ${formData.website}`,
+        registration_number: formData.regNumber,
+        official_email: formData.email,
+        website_url: formData.website,
+        tax_id: formData.taxId,
+        registration_date: formData.regDate,
+        description: `Verified business profile for ${formData.companyName}`,
         phone: '+251 (911) 000-000',
         location: formData.location,
       };

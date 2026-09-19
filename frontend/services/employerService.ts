@@ -3,6 +3,11 @@ import { fetchWithAuth } from './apiClient';
 export interface EmployerProfileCreatePayload {
   business_name: string;
   business_type: string;
+  registration_number?: string;
+  official_email?: string;
+  website_url?: string;
+  tax_id?: string;
+  registration_date?: string;
   description?: string;
   phone?: string;
   location?: string;
@@ -13,6 +18,11 @@ export interface EmployerProfileResponse {
   user_id: string;
   business_name: string;
   business_type: string;
+  registration_number?: string;
+  official_email?: string;
+  website_url?: string;
+  tax_id?: string;
+  registration_date?: string;
   description?: string;
   phone?: string;
   location?: string;

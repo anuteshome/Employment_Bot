@@ -29,6 +29,11 @@ async def create_or_update_employer_profile(
             user_id=user.id,
             business_name=payload.business_name,
             business_type=payload.business_type,
+            registration_number=payload.registration_number,
+            official_email=payload.official_email,
+            website_url=payload.website_url,
+            tax_id=payload.tax_id,
+            registration_date=payload.registration_date,
             description=payload.description,
             phone=payload.phone,
             location=payload.location,
@@ -38,6 +43,11 @@ async def create_or_update_employer_profile(
     else:
         profile.business_name = payload.business_name
         profile.business_type = payload.business_type
+        profile.registration_number = payload.registration_number
+        profile.official_email = payload.official_email
+        profile.website_url = payload.website_url
+        profile.tax_id = payload.tax_id
+        profile.registration_date = payload.registration_date
         profile.description = payload.description
         profile.phone = payload.phone
         profile.location = payload.location
