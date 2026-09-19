@@ -78,6 +78,15 @@ async def create_or_update_employee_profile(
             user_id=user.id,
             first_name=payload.first_name,
             last_name=payload.last_name,
+            email=payload.email,
+            phone=payload.phone,
+            avatar_url=payload.avatar_url,
+            emergency_contact_name=payload.emergency_contact_name,
+            emergency_contact_phone=payload.emergency_contact_phone,
+            current_job_title=payload.current_job_title,
+            years_experience=payload.years_experience,
+            portfolio_url=payload.portfolio_url,
+            cv_file_url=payload.cv_file_url,
             bio=payload.bio,
             location=payload.location,
             availability_status=payload.availability_status,
@@ -88,6 +97,15 @@ async def create_or_update_employee_profile(
     else:
         profile.first_name = payload.first_name
         profile.last_name = payload.last_name
+        profile.email = payload.email
+        profile.phone = payload.phone
+        profile.avatar_url = payload.avatar_url
+        profile.emergency_contact_name = payload.emergency_contact_name
+        profile.emergency_contact_phone = payload.emergency_contact_phone
+        profile.current_job_title = payload.current_job_title
+        profile.years_experience = payload.years_experience
+        profile.portfolio_url = payload.portfolio_url
+        profile.cv_file_url = payload.cv_file_url
         profile.bio = payload.bio
         profile.location = payload.location
         profile.availability_status = payload.availability_status
@@ -199,6 +217,15 @@ def build_employee_profile_response(profile: EmployeeProfile) -> EmployeeProfile
         user_id=profile.user_id,
         first_name=profile.first_name,
         last_name=profile.last_name,
+        email=profile.email,
+        phone=profile.phone,
+        avatar_url=profile.avatar_url,
+        emergency_contact_name=profile.emergency_contact_name,
+        emergency_contact_phone=profile.emergency_contact_phone,
+        current_job_title=profile.current_job_title,
+        years_experience=profile.years_experience,
+        portfolio_url=profile.portfolio_url,
+        cv_file_url=profile.cv_file_url,
         bio=profile.bio,
         location=profile.location,
         availability_status=profile.availability_status,

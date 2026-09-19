@@ -45,6 +45,13 @@ export function EmployeeWizard() {
           setFormData((prev) => ({
             ...prev,
             fullName: `${profile.first_name} ${profile.last_name}`,
+            email: profile.email || prev.email,
+            phone: profile.phone || prev.phone,
+            emergencyName: profile.emergency_contact_name || prev.emergencyName,
+            emergencyPhone: profile.emergency_contact_phone || prev.emergencyPhone,
+            jobTitle: profile.current_job_title || prev.jobTitle,
+            yearsExp: profile.years_experience || prev.yearsExp,
+            portfolio: profile.portfolio_url || prev.portfolio,
             location: profile.location || prev.location,
             bio: profile.bio || prev.bio,
           }));
@@ -84,13 +91,20 @@ export function EmployeeWizard() {
       const payload: EmployeeProfileCreatePayload = {
         first_name: firstName,
         last_name: lastName,
-        bio: formData.portfolio ? `Portfolio: ${formData.portfolio}` : 'Candidate profile',
+        email: formData.email,
+        phone: formData.phone,
+        emergency_contact_name: formData.emergencyName,
+        emergency_contact_phone: formData.emergencyPhone,
+        current_job_title: formData.jobTitle,
+        years_experience: formData.yearsExp,
+        portfolio_url: formData.portfolio,
+        bio: formData.bio || 'Candidate profile',
         location: formData.location,
         availability_status: 'AVAILABLE',
         skills: skills.map((s) => ({
           name: s,
           category: 'General',
-          years_experience: 3,
+          years_experience: formData.yearsExp.includes('8+') ? 8 : formData.yearsExp.includes('5–7') ? 5 : 2,
         })),
         experiences: [
           {

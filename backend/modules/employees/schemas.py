@@ -70,6 +70,15 @@ class EmployeeProfileCreate(BaseModel):
     """Request model for creating or updating candidate employee profile."""
     first_name: str = Field(..., description="First name", example="Abebe")
     last_name: str = Field(..., description="Last name", example="Bikila")
+    email: Optional[str] = Field(None, description="Email address", example="abebe@example.com")
+    phone: Optional[str] = Field(None, description="Phone number", example="+251911000000")
+    avatar_url: Optional[str] = Field(None, description="Profile photo URL")
+    emergency_contact_name: Optional[str] = Field(None, description="Emergency contact name")
+    emergency_contact_phone: Optional[str] = Field(None, description="Emergency contact phone")
+    current_job_title: Optional[str] = Field(None, description="Current job title", example="Senior Product Designer")
+    years_experience: Optional[str] = Field(None, description="Years of experience", example="5–7 years")
+    portfolio_url: Optional[str] = Field(None, description="Portfolio website URL", example="https://portfolio.com")
+    cv_file_url: Optional[str] = Field(None, description="Uploaded CV document URL")
     bio: Optional[str] = Field(None, description="Personal bio summary", example="Experienced developer...")
     location: Optional[str] = Field(None, description="City/Location", example="Addis Ababa, Ethiopia")
     availability_status: str = Field("AVAILABLE", description="Availability status", example="AVAILABLE")
@@ -84,6 +93,15 @@ class EmployeeProfileResponse(BaseModel):
     user_id: uuid.UUID
     first_name: str
     last_name: str
+    email: Optional[str] = None
+    phone: Optional[str] = None
+    avatar_url: Optional[str] = None
+    emergency_contact_name: Optional[str] = None
+    emergency_contact_phone: Optional[str] = None
+    current_job_title: Optional[str] = None
+    years_experience: Optional[str] = None
+    portfolio_url: Optional[str] = None
+    cv_file_url: Optional[str] = None
     bio: Optional[str] = None
     location: Optional[str] = None
     availability_status: str
